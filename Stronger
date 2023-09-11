@@ -1,0 +1,106 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "BaconBoss Hub | 💪 Get Stronger Every Second", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+
+_G.win = true
+_G.segg = "StarterEgg"
+_G.egg = true
+getgenv().tpPlace = "string"
+
+function Teleport(teleportPlace)
+    local player = game.Players.LocalPlayer
+    player.Character.HumanoidRootPart.CFrame = teleportPlace
+end
+
+function win()
+     while _G.win == true do
+        local args = {
+            [1] = "Strength",
+            [2] = 1
+        }
+        
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Trophies"):WaitForChild("Events"):WaitForChild("UnlockTrophy"):FireServer(unpack(args))
+     wait(0)
+    end
+end
+
+function egg()
+     while _G.egg == true do
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Eggs"):WaitForChild("Events"):WaitForChild("Hatch1"):FireServer(_G.segg,1)
+     wait()
+    end
+end
+
+local MainTab = Window:MakeTab({
+	Name = "Main",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local eggTab = Window:MakeTab({
+	Name = "Egg",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local tpTab = Window:MakeTab({
+	Name = "Tp",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+MainTab:AddToggle({
+	Name = "Inf Win",
+	Default = false,
+	Callback = function(Value)
+		_G.win = Value
+        win()
+	end    
+})
+
+eggTab:AddToggle({
+	Name = "Auto Hatch",
+	Default = false,
+	Callback = function(Value)
+		_G.egg = Value
+        egg()
+	end    
+})
+
+eggTab:AddDropdown({
+	Name = "Select Egg",
+	Default = "StarterEgg",
+	Options = {"StarterEgg", "CyberEgg", "WinterEgg", "OceanEgg", "LavaEgg", "CandyEgg", "LightingEgg"},
+	Callback = function(Value)
+		_G.segg = Value
+	end    
+})
+
+tpTab:AddDropdown({
+	Name = "Select World",
+	Default = "Starter",
+	Options = {"Starter World", "Cyber World", "Winter World", "Ocean World", "Fire World", "Candy World", "Lightning World"},
+	Callback = function(Value)
+	    getgenv().tpPlace = Value  
+	end    
+})
+
+tpTab:AddButton({
+	Name = "Tp",
+	Callback = function()
+	    if getgenv().tpPlace == "Starter World" then
+      	 Teleport(game:GetService("Workspace").ScriptableObjects.DailyChest.ClaimPart.CFrame)
+		elseif getgenv().tpPlace == "Cyber World" then
+         Teleport(game:GetService("Workspace").ScriptableObjects.CyberChest.ClaimPart.CFrame)
+        elseif getgenv().tpPlace == "Winter World" then
+      	 Teleport(game:GetService("Workspace").ScriptableObjects.WinterChest.ClaimPart.CFrame)
+		elseif getgenv().tpPlace == "Ocean World" then
+         Teleport(game:GetService("Workspace").ScriptableObjects.OceanChest.ClaimPart.CFrame)
+        elseif getgenv().tpPlace == "Fire World" then
+         Teleport(game:GetService("Workspace").ScriptableObjects.FireChest.ClaimPart.CFrame)
+        elseif getgenv().tpPlace == "Candy World" then
+         Teleport(game:GetService("Workspace").ScriptableObjects.CandyChest.ClaimPart.CFrame)
+        elseif getgenv().tpPlace == "Lightning World" then
+         Teleport(game:GetService("Workspace").ScriptableObjects.LightningChest.ClaimPart.CFrame)
+	    end    
+    end
+}) 
